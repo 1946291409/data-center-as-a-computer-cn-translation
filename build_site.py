@@ -10,11 +10,12 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent
 REVIEWED_DIR = ROOT / "reviewed_content"
 IMAGES_DIR = ROOT / "build" / "images"
+PROJECT_IMAGES_DIR = ROOT / "images"
 TERMS_CSV = ROOT / "terminology" / "terms.csv"
-PUBLIC_FLOW_FILE = ROOT / "docs" / "project_flow_public.mmd"
 SITE_DIR = ROOT / "site"
 SITE_DOCS_DIR = SITE_DIR / "docs"
 SITE_PUBLIC_IMAGES_DIR = SITE_DOCS_DIR / "public" / "images"
+SITE_PUBLIC_PROJECT_DIR = SITE_DOCS_DIR / "public" / "project"
 SITE_DATA_FILE = SITE_DOCS_DIR / ".vitepress" / "site-data.mjs"
 
 CHAPTER_TITLE_MAP = {
@@ -106,6 +107,7 @@ def ensure_dir(path: Path) -> None:
 def reset_generated_dirs() -> None:
     ensure_dir(SITE_DOCS_DIR)
     ensure_dir(SITE_PUBLIC_IMAGES_DIR)
+    ensure_dir(SITE_PUBLIC_PROJECT_DIR)
     generated_dirs = [p for p in SITE_DOCS_DIR.glob("chapter-*") if p.is_dir()]
     for path in generated_dirs:
         shutil.rmtree(path)
@@ -113,6 +115,10 @@ def reset_generated_dirs() -> None:
         for path in SITE_PUBLIC_IMAGES_DIR.glob("chapter-*"):
             if path.is_dir():
                 shutil.rmtree(path)
+    if SITE_PUBLIC_PROJECT_DIR.exists():
+        for path in SITE_PUBLIC_PROJECT_DIR.glob("*"):
+            if path.is_file():
+                path.unlink()
 
 
 def extract_first_heading(text: str) -> tuple[str, str]:
@@ -145,6 +151,13 @@ def copy_chapter_images(chapter_number: int) -> None:
             shutil.copy2(image, dst / image.name)
 
 
+def copy_project_images() -> None:
+    ensure_dir(SITE_PUBLIC_PROJECT_DIR)
+    src = PROJECT_IMAGES_DIR / "simple.png"
+    if src.exists():
+        shutil.copy2(src, SITE_PUBLIC_PROJECT_DIR / "project-flow-simple.png")
+
+
 def load_terms() -> list[dict[str, str]]:
     rows: list[dict[str, str]] = []
     with TERMS_CSV.open("r", encoding="utf-8", newline="") as fh:
@@ -173,17 +186,14 @@ def build_glossary_md() -> str:
 
 
 def build_home_md(chapters: list[dict[str, object]]) -> str:
-    flow = PUBLIC_FLOW_FILE.read_text(encoding="utf-8").strip()
     lines = [
         "# The Data Center as a Computer",
         "",
-        "这个站点用于在线浏览《The Data Center as a Computer》的中文译文。下面的 Mermaid 源码概括了从原始书稿到在线站点的构建流程。",
+        "这个站点用于在线浏览《The Data Center as a Computer》的中文译文。下图概括了从原始书稿到在线站点的构建流程。",
         "",
-        "## 项目构建流程（Mermaid 源码）",
+        "## 项目构建流程",
         "",
-        "```mermaid",
-        flow,
-        "```",
+        "![项目构建流程](/project/project-flow-simple.png)",
         "",
         "## 阅读入口",
         "",
@@ -247,6 +257,7 @@ def render_site_data(chapters: list[dict[str, object]]) -> str:
 
 def generate_site_docs() -> list[dict[str, object]]:
     reset_generated_dirs()
+    copy_project_images()
     chapters: list[dict[str, object]] = []
     for chapter_dir in sorted(REVIEWED_DIR.glob("chapter_*"), key=lambda p: int(p.name.split("_")[1])):
         match = re.match(r"chapter_(\d+)$", chapter_dir.name)

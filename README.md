@@ -9,40 +9,7 @@
 
 ## 项目流程
 
-```mermaid
-flowchart TD
-    A["原始资料<br/>The Data Center as a Computer EPUB/PDF"] --> B["EPUB 结构化抽取<br/>extract_epub_clean.py"]
-    B --> C["英文 Markdown 底稿<br/>build/original_text/"]
-    B --> D["图片资源整理<br/>build/images/"]
-    B --> E["抽取校验报告<br/>build/reports/"]
-
-    C --> F["术语库与翻译提示词<br/>terminology/ + prompts/"]
-    F --> G["ModelScope 分节翻译<br/>Qwen/Qwen3-32B"]
-    G --> H["初译基线<br/>translated_content/"]
-    G --> I["翻译状态与断点续跑<br/>translation_state/"]
-
-    H --> J["本地结构审计<br/>review_audit.py"]
-    C --> J
-    D --> J
-    J --> K["审计报告<br/>review_reports/"]
-    J --> L["机械校订副本<br/>reviewed_content/"]
-
-    H --> M["强模型语义审校<br/>Qwen/Qwen3-235B-A22B"]
-    C --> M
-    M --> K
-    K --> N["高可信修订筛选<br/>保留证据与 applied_fixes.md"]
-    N --> L
-
-    L --> O["站点生成<br/>build_site.py"]
-    D --> O
-    F --> O
-    O --> P["VitePress 文档站<br/>site/docs/"]
-    P --> Q["GitHub Actions 构建部署<br/>.github/workflows/deploy.yml"]
-    Q --> R["GitHub Pages 在线阅读站"]
-
-    S["TODO / 后续优化<br/>裁决器结构化 patch、审计精度、章节展示"] -.-> K
-    S -.-> O
-```
+![项目流程](images/complex.png)
 
 ## 本地预览站点
 
