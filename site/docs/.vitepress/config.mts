@@ -6,7 +6,7 @@ const isCi = process.env.GITHUB_ACTIONS === 'true'
 
 export default defineConfig({
   lang: 'zh-CN',
-  title: 'The Data Center as a Computer',
+  title: 'DCaaC',
   description: '基于 reviewed_content 生成的中文技术书在线阅读站点。',
   base: isCi ? `/${repoName}/` : '/',
   cleanUrls: false,
