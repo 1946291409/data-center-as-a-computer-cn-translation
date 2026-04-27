@@ -1,0 +1,86 @@
+{
+  "provider": "modelscope",
+  "api_style": "openai_compatible",
+  "base_url": "https://api-inference.modelscope.cn/v1",
+  "api_key_env": "MODELSCOPE_SDK_TOKEN",
+  "model": "Qwen/Qwen3-32B",
+  "models": {
+    "translation_model": "Qwen/Qwen3-32B",
+    "review_model": "Qwen/Qwen3-235B-A22B",
+    "fallback_model": "Qwen/Qwen3-32B"
+  },
+  "timeout_seconds": 600,
+  "request": {
+    "stream": true,
+    "temperature": 0.2,
+    "top_p": 0.9,
+    "max_tokens": 4096,
+    "extra_body": {
+      "enable_thinking": true,
+      "thinking_budget": 4096
+    }
+  },
+  "translation": {
+    "source_language": "en",
+    "target_language": "zh-CN",
+    "source_directory": "build/original_text",
+    "output_directory": "translated_content",
+    "termbase_csv": "terminology/terms.csv",
+    "termbase_json": "terminology/terms.json",
+    "always_include_priority_terms": true,
+    "max_termbase_entries_per_request": 80,
+    "preserve_markdown": true,
+    "preserve_citations": true,
+    "preserve_image_links": true,
+    "chinese_paragraph_indent": "　　",
+    "max_input_chars_per_request": 6000
+  },
+  "prompts": {
+    "system_prompt_file": "prompts/modelscope_translation_system.md",
+    "user_prompt_template_file": "prompts/modelscope_translation_user_template.md",
+    "legacy_human_prompt_file": "prompt.md"
+  },
+  "streaming": {
+    "reasoning_delta_field": "choices[0].delta.reasoning_content",
+    "answer_delta_field": "choices[0].delta.content",
+    "save_reasoning_trace": false,
+    "final_answer_only": true
+  },
+  "review": {
+    "output_directory": "review_reports",
+    "reviewed_output_directory": "reviewed_content",
+    "model": "Qwen/Qwen3-235B-A22B",
+    "fallback_model": "Qwen/Qwen3-32B",
+    "system_prompt_file": "prompts/modelscope_review_system.md",
+    "user_prompt_template_file": "prompts/modelscope_review_user_template.md",
+    "thinking_budget": 4096,
+    "high_risk_keywords": [
+      "power",
+      "energy",
+      "cooling",
+      "fault",
+      "failure",
+      "security",
+      "availability",
+      "reliability",
+      "latency",
+      "encryption",
+      "carbon",
+      "PUE",
+      "SLO"
+    ]
+  },
+  "arbiter": {
+    "model": "Qwen/Qwen3-235B-A22B",
+    "fallback_model": "Qwen/Qwen3-32B",
+    "system_prompt_file": "prompts/modelscope_arbiter_system.md",
+    "user_prompt_template_file": "prompts/modelscope_arbiter_user_template.md",
+    "thinking_budget": 4096,
+    "auto_apply_priorities": [
+      "P0",
+      "P1"
+    ],
+    "reject_style_only": true,
+    "max_fragments_per_run": 200
+  }
+}

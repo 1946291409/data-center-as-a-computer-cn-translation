@@ -1,0 +1,27 @@
+:root {
+  --vp-font-family-base: "Noto Sans SC", "Microsoft YaHei", "PingFang SC", system-ui, sans-serif;
+  --vp-font-family-mono: "Cascadia Code", "JetBrains Mono", "SFMono-Regular", monospace;
+}
+
+.VPDoc {
+  word-break: break-word;
+}
+
+.VPDoc p {
+  text-align: justify;
+}
+
+.VPDoc img {
+  display: block;
+  max-width: 100%;
+  margin: 1.25rem auto;
+}
+
+.VPDoc table {
+  display: table;
+  width: 100%;
+}
+
+.VPDoc blockquote {
+  color: var(--vp-c-text-2);
+}

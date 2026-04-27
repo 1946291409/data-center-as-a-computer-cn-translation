@@ -1,0 +1,65 @@
+{
+  "version": 1,
+  "source_scope": "chapter_5",
+  "status": "draft",
+  "terms_csv": "terminology/terms.csv",
+  "usage": {
+    "first_use_pattern": "中文全称（ABBR）",
+    "later_use_pattern": "ABBR when clear",
+    "preserve_markdown": true,
+    "preserve_citations": true,
+    "preserve_image_links": true
+  },
+  "priority_terms": [
+    {
+      "source": "WSC",
+      "target": "仓库规模计算机（WSC）",
+      "note": "Keep WSC after first expansion."
+    },
+    {
+      "source": "data center",
+      "target": "数据中心",
+      "note": "Do not translate as 数据机房 unless the room itself is meant."
+    },
+    {
+      "source": "UPS",
+      "target": "不间断电源（UPS）",
+      "note": "Keep UPS after first expansion."
+    },
+    {
+      "source": "PDU",
+      "target": "配电单元（PDU）",
+      "note": "Keep PDU after first expansion."
+    },
+    {
+      "source": "CRAC",
+      "target": "计算机房空调（CRAC）",
+      "note": "Keep CRAC after first expansion."
+    },
+    {
+      "source": "CDU",
+      "target": "冷却分配单元（CDU）",
+      "note": "Keep CDU after first expansion."
+    },
+    {
+      "source": "PUE",
+      "target": "电能使用效率（PUE）",
+      "note": "Keep PUE after first expansion."
+    },
+    {
+      "source": "power oversubscription",
+      "target": "功率超配",
+      "note": "Use consistently in power-management context."
+    },
+    {
+      "source": "hot aisle containment",
+      "target": "热通道封闭",
+      "note": "Use for containment structures."
+    },
+    {
+      "source": "modular data center",
+      "target": "模块化数据中心",
+      "note": "Use across construction sections."
+    }
+  ]
+}

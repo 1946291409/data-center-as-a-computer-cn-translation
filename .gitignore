@@ -1,0 +1,29 @@
+__pycache__/
+.omx/
+.DS_Store
+Thumbs.db
+
+site/node_modules/
+site/docs/.vitepress/cache/
+site/docs/.vitepress/dist/
+site/docs/.vitepress/site-data.mjs
+site/docs/chapter-*/
+site/docs/index.md
+site/docs/preface.md
+site/docs/glossary.md
+site/docs/public/images/
+
+translation_state/
+old/
+
+build/original_text/
+build/reports/
+
+translated_content/
+review_reports/
+reviewed_content/**/.chunks/
+
+The Data Center as a Computer.epub
+The Data Center as a Computer.pdf
+
+*.log
