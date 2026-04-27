@@ -11,6 +11,7 @@ ROOT = Path(__file__).resolve().parent
 REVIEWED_DIR = ROOT / "reviewed_content"
 IMAGES_DIR = ROOT / "build" / "images"
 TERMS_CSV = ROOT / "terminology" / "terms.csv"
+PUBLIC_FLOW_FILE = ROOT / "docs" / "project_flow_public.mmd"
 SITE_DIR = ROOT / "site"
 SITE_DOCS_DIR = SITE_DIR / "docs"
 SITE_PUBLIC_IMAGES_DIR = SITE_DOCS_DIR / "public" / "images"
@@ -172,16 +173,17 @@ def build_glossary_md() -> str:
 
 
 def build_home_md(chapters: list[dict[str, object]]) -> str:
+    flow = PUBLIC_FLOW_FILE.read_text(encoding="utf-8").strip()
     lines = [
         "# The Data Center as a Computer",
         "",
-        "这个站点用于在线浏览《The Data Center as a Computer》的中文译文，当前正文来源于项目内的二阶段稳定稿 `reviewed_content/`。",
+        "这个站点用于在线浏览《The Data Center as a Computer》的中文译文。下面的 Mermaid 源码概括了从原始书稿到在线站点的构建流程。",
         "",
-        "## 站点说明",
+        "## 项目构建流程（Mermaid 源码）",
         "",
-        "- 正文以当前中文译文定稿为准。",
-        "- 章节、小节、图片、图注与公式结构尽量保持原书组织方式。",
-        "- 术语表与译者说明可作为辅助阅读入口。",
+        "```mermaid",
+        flow,
+        "```",
         "",
         "## 阅读入口",
         "",
@@ -195,10 +197,6 @@ def build_home_md(chapters: list[dict[str, object]]) -> str:
             "",
             "- [译者说明](./preface.md)",
             "- [术语表](./glossary.md)",
-            "",
-            "## 边界",
-            "",
-            "- 审计报告、初译稿和内部工具产物不在站点中公开展示。",
         ]
     )
     return "\n".join(lines).rstrip() + "\n"
