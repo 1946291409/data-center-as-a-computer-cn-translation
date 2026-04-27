@@ -1,4 +1,4 @@
-# PDF Translate Site
+# Data Center as a Computer Translate 
 
 这个目录承载 GitHub Pages 站点工程，正文内容来源于仓库根目录下的 `reviewed_content/`。
 
