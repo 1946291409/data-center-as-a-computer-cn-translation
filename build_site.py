@@ -106,19 +106,20 @@ def load_terms() -> list[dict[str, str]]:
 
 
 def build_glossary_md() -> str:
-    rows = load_terms()
+    rows = sorted(load_terms(), key=lambda row: (row["category"], row["source"].lower()))
     header = [
         "# 术语表",
         "",
-        "当前页面整理项目中已沉淀的主要术语，优先展示当前校订流程中已经固定使用的译法。",
+        "本页整理当前译文中已经固定使用或优先采用的主要术语，便于阅读时统一理解英文原词与中文译法。",
         "",
-        "| English | 中文译法 | 分类 | 状态 | 说明 |",
-        "| --- | --- | --- | --- | --- |",
+        "> 说明：页面只展示术语、译法与必要备注，不展示内部流程字段。",
+        "",
+        "| English | 中文译法 | 说明 |",
+        "| --- | --- | --- |",
     ]
     for row in rows:
-        header.append(
-            f"| {row['source']} | {row['target']} | {row['category']} | {row['status']} | {row['notes']} |"
-        )
+        note = row["notes"].strip() or "—"
+        header.append(f"| {row['source']} | {row['target']} | {note} |")
     return "\n".join(header).rstrip() + "\n"
 
 
@@ -128,6 +129,12 @@ def build_home_md(chapters: list[dict[str, object]]) -> str:
         "",
         "这个站点用于在线浏览《The Data Center as a Computer》的中文译文，当前正文来源于项目内的二阶段稳定稿 `reviewed_content/`。",
         "",
+        "## 站点说明",
+        "",
+        "- 正文以当前中文译文定稿为准。",
+        "- 章节、小节、图片、图注与公式结构尽量保持原书组织方式。",
+        "- 术语表与译者说明可作为辅助阅读入口。",
+        "",
         "## 阅读入口",
         "",
     ]
@@ -136,10 +143,13 @@ def build_home_md(chapters: list[dict[str, object]]) -> str:
     lines.extend(
         [
             "",
-            "## 说明",
+            "## 辅助入口",
             "",
-            "- 页面内容以当前中文译文定稿为准。",
-            "- 术语表与译者说明可作为辅助阅读入口。",
+            "- [译者说明](./preface.md)",
+            "- [术语表](./glossary.md)",
+            "",
+            "## 边界",
+            "",
             "- 审计报告、初译稿和内部工具产物不在站点中公开展示。",
         ]
     )
@@ -150,7 +160,8 @@ def build_preface_md() -> str:
     return (
         "# 译者说明\n\n"
         "本项目用于整理英文技术书《The Data Center as a Computer》的中文译文，并在尽量保留原书技术表达、结构层次和术语一致性的前提下完成校审与发布整理。\n\n"
-        "当前网页版本基于项目中的二阶段校订稿生成，正文保留原有段落划分、图片、图注、引用与公式结构。术语、数字、图片路径和关键技术表述均经过一轮结构校验与重点章节复核。\n\n"
+        "当前网页版本基于项目中的二阶段校订稿生成。正文保留原有段落划分、图片、图注、引用与公式结构；术语、数字、图片路径和关键技术表述均经过结构校验与重点章节复核。\n\n"
+        "站点发布目标是提供稳定、可浏览、可持续修订的阅读版本，而不是公开展示内部翻译流水线本身。初译稿、审计报告、状态文件与中间产物不作为站点内容公开呈现。\n\n"
         "如原书或相关材料涉及版权限制，本仓库与站点内容仅用于个人学习、研究与翻译校对整理，不用于商业传播。\n"
     )
 

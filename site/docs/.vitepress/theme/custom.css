@@ -3,12 +3,35 @@
   --vp-font-family-mono: "Cascadia Code", "JetBrains Mono", "SFMono-Regular", monospace;
 }
 
+.VPNavBarTitle .title {
+  max-width: 24rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 1rem;
+}
+
+.VPSidebar {
+  font-size: 14px;
+}
+
+.VPSidebarItem .text {
+  line-height: 1.5;
+  word-break: break-word;
+}
+
+.VPDoc h1 {
+  line-height: 1.15;
+  text-wrap: balance;
+}
+
 .VPDoc {
   word-break: break-word;
 }
 
 .VPDoc p {
   text-align: justify;
+  line-height: 1.85;
 }
 
 .VPDoc img {
@@ -20,8 +43,29 @@
 .VPDoc table {
   display: table;
   width: 100%;
+  font-size: 0.95rem;
 }
 
 .VPDoc blockquote {
   color: var(--vp-c-text-2);
+}
+
+.VPDoc li {
+  line-height: 1.7;
+}
+
+@media (max-width: 960px) {
+  .VPNavBarTitle .title {
+    max-width: 11rem;
+    font-size: 0.94rem;
+  }
+
+  .VPDoc h1 {
+    font-size: 2rem;
+  }
+
+  .VPDoc p,
+  .VPDoc li {
+    line-height: 1.75;
+  }
 }
