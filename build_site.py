@@ -124,9 +124,9 @@ def build_glossary_md() -> str:
 
 def build_home_md(chapters: list[dict[str, object]]) -> str:
     lines = [
-        "# The Data Center as a Computer 中文校订稿",
+        "# The Data Center as a Computer",
         "",
-        "这个站点用于在线浏览《The Data Center as a Computer》的中文校订稿，当前正文来源于项目内的二阶段稳定稿 `reviewed_content/`。",
+        "这个站点用于在线浏览《The Data Center as a Computer》的中文译文，当前正文来源于项目内的二阶段稳定稿 `reviewed_content/`。",
         "",
         "## 阅读入口",
         "",
@@ -138,7 +138,7 @@ def build_home_md(chapters: list[dict[str, object]]) -> str:
             "",
             "## 说明",
             "",
-            "- 页面内容以中文校订稿为准。",
+            "- 页面内容以当前中文译文定稿为准。",
             "- 术语表与译者说明可作为辅助阅读入口。",
             "- 审计报告、初译稿和内部工具产物不在站点中公开展示。",
         ]
